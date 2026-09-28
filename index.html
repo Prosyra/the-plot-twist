@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE PLOT TWIST — CASE 001</title>
+<style>
+body{margin:0;background:#080808;color:#eee;font-family:Arial,sans-serif}
+main{max-width:700px;margin:auto;padding:25px}
+h1{font-family:Georgia;font-size:48px;line-height:.95}
+h2{font-family:Georgia;font-size:35px}
+.red{color:#a51b20}
+button{background:#94181d;color:white;border:1px solid #c33;padding:15px 20px;margin:8px 0;font-size:12px}
+.card{background:#111;border:1px solid #333;padding:20px;margin:10px 0}
+.small{color:#888;font-size:11px;letter-spacing:2px}
+.hidden{display:none}
+.envelope{height:160px;background:#741318;margin:35px 0;display:flex;align-items:center;justify-content:center;font-size:28px}
+.clue{border-left:3px solid #a51b20;padding:12px;margin:15px 0;background:#151010}
+input{background:#111;border:1px solid #555;color:white;padding:14px;width:100px}
+</style>
+</head>
+
+<body>
+<main>
+
+<section id="home">
+<p class="small">THE PLOT TWIST • CASE 001</p>
+<h1>THE GIRL WHO<br><span class="red">DISAPPEARED</span></h1>
+<p>Someone disappeared at exactly <b>11:47 PM.</b></p>
+<p>The cameras were working.</p>
+<p>The doors were locked.</p>
+<p>And nobody saw her leave.</p>
+
+<div class="envelope">11:47</div>
+
+<button onclick="show('briefing')">OPEN CASE →</button>
+</section>
+
+<section id="briefing" class="hidden">
+<p class="small">CASE FILE 001</p>
+<h1>THE GIRL WHO<br><span class="red">DISAPPEARED</span></h1>
+
+<p>Your objective:</p>
+<p>Determine what happened to Maya Vale between <b>11:46 PM</b> and <b>11:47 PM.</b></p>
+
+<div class="card">SUBJECT<br><b>MAYA VALE</b></div>
+<div class="card">AGE<br><b>23</b></div>
+<div class="card">LOCATION<br><b>BELLWEATHER HOTEL</b></div>
+<div class="card">ROOM<br><b>407</b></div>
+<div class="card">STATUS<br><b>MISSING</b></div>
+
+<button onclick="show('evidence')">ENTER EVIDENCE ROOM →</button>
+</section>
+
+<section id="evidence" class="hidden">
+<p class="small">EVIDENCE ROOM</p>
+<h2>Six files.<br><span class="red">One missing minute.</span></h2>
+
+<div id="files"></div>
+
+<button id="board" class="hidden" onclick="show('board')">
+BUILD INVESTIGATION BOARD →
+</button>
+</section>
+
+<section id="board" class="hidden">
+<p class="small">INVESTIGATION BOARD</p>
+<h2>What do you know<br><span class="red">for certain?</span></h2>
+
+<div class="clue">MAYA KNEW ABOUT THE RED ENVELOPE.</div>
+<div class="clue">3.2 SECONDS WERE DELETED.</div>
+<div class="clue">ROOM 409 WAS NOT EMPTY.</div>
+<div class="clue">ELIAS WAS NOT FOLLOWING MAYA.</div>
+
+<h3>Who is hiding something?</h3>
+
+<button onclick="choose(this)">ELIAS VOSS</button><br>
+<button onclick="choose(this)">ARTHUR BELL</button><br>
+<button onclick="choose(this)">LENA VALE</button><br>
+<button onclick="choose(this)">UNKNOWN</button>
+
+<br>
+<button id="revealButton" class="hidden" onclick="show('reveal')">
+LOCK THEORY →
+</button>
+</section>
+
+<section id="reveal" class="hidden">
+<p class="small">CASE STATUS • 001</p>
+<h1>YOU SOLVED<br><span class="red">THE DISAPPEARANCE.</span></h1>
+
+<p>But you haven't solved the case.</p>
+
+<div class="clue">
+Maya did not leave the hotel the way you thought.
+<br><br>
+Someone wore her coat.
+<br><br>
+Someone deleted six seconds.
+<br><br>
+And someone has been watching the investigation.
+</div>
+
+<h2>CASE 002</h2>
+<p><b>THE MAN WHO RECEIVED HIS OWN OBITUARY</b></p>
+
+<p class="red">LOCKED • COMING SOON</p>
+</section>
+
+</main>
+
+<script>
+
+const evidence = [
+
+["01","MAYA'S PHONE",
+"11:31 — Incoming call: Elias Voss<br>11:32 — Call duration: 03:14<br>11:39 — Camera opened<br>11:42 — Photograph taken<br>11:44 — Message sent<br>11:47 — Phone locked",
+"Final message to Lena: If I don't call you before midnight, don't come looking for me."
+],
+
+["02","CCTV FOOTAGE",
+"11:41 — Maya exits Room 407.<br>11:43 — Elias Voss appears.<br>11:44 — Elias enters Room 407.<br>11:46 — Maya enters the east corridor.<br>11:47 — CAMERA STATIC: 3.2 SECONDS.<br>11:48 — Elias leaves Room 407.",
+"Someone removed part of the timeline."
+],
+
+["03","THE PHOTOGRAPH",
+"Hotel corridor.<br>Room 407.<br>Fire extinguisher.<br>Plant.<br><br>A RED ENVELOPE appears at the far end.",
+"The mirror reflection shows Room 409 behind Maya."
+],
+
+["04","WITNESS STATEMENT",
+"Arthur Bell — Night Manager<br><br>“I remember seeing the girl around 11:40.”<br><br>“A man came looking for her.”<br><br>“After that, everything was quiet.”",
+"Hotel records place Elias at 11:43, not 11:40."
+],
+
+["05","VOICE RECORDING",
+"Maya: If you're hearing this, something went wrong.<br><br>The person following me isn't Elias.<br><br>DISTORTED: NOT. ELIAS. HIM.",
+"A faint door closing matches Room 409."
+],
+
+["06","THE RED ENVELOPE",
+"YOU ARE LOOKING FOR THE WRONG PERSON.<br><br>START WITH THE MINUTE THAT DOESN'T EXIST.<br><br>CCTV: 11:46:58 → 11:47:04<br><br>MISSING: 00:00:06",
+"Camera 04 was manually edited. Deleted by: A.B."
+]
+
+];
+
+let opened=0;
+
+function show(id){
+
+document.querySelectorAll("section").forEach(x=>{
+x.classList.add("hidden")
+});
+
+document.getElementById(id).classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+function openFile(file){
+
+opened++;
+
+alert(
+"FILE "+file[0]+
+"\n\n"+file[1]+
+"\n\n"+file[2]+
+"\n\nDETECTIVE NOTE:\n"+file[3]
+);
+
+if(opened>=6){
+
+document.getElementById("board").classList.remove("hidden");
+
+}
+
+}
+
+function choose(button){
+
+document.querySelectorAll("#board button").forEach(x=>{
+x.style.opacity=".45"
+});
+
+button.style.opacity="1";
+
+document.getElementById("revealButton").classList.remove("hidden");
+
+}
+
+let html="";
+
+evidence.forEach(file=>{
+
+html += `
+<div class="card">
+<p class="small">FILE ${file[0]}</p>
+<h3>${file[1]}</h3>
+<button onclick='openFile(${JSON.stringify(file)})'>
+OPEN FILE →
+</button>
+</div>
+`;
+
+});
+
+document.getElementById("files").innerHTML=html;
+
+</script>
+
+</body>
+  </html>
