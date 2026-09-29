@@ -60,7 +60,22 @@ letter-spacing:2px
 .hidden{
 display:none
 }
+  
+#evidencePanel{
+background:#111;
+border:1px solid #333;
+padding:20px;
+margin:20px 0;
+}
 
+#evidencePanel h2{
+margin-top:0;
+}
+
+#evidencePanel button{
+margin-top:15px;
+}
+  
 .envelope{
 height:160px;
 background:#741318;
@@ -200,6 +215,15 @@ EVIDENCE ROOM
 
 <div id="files"></div>
 
+<div id="evidencePanel" class="hidden">
+<h2 id="evidenceTitle"></h2>
+<p id="evidenceContent"></p>
+<div class="clue">
+<p id="evidenceNote"></p>
+</div>
+<button onclick="closeEvidence()">CLOSE FILE ×</button>
+</div>
+  
 <button
 id="board"
 class="hidden"
@@ -467,20 +491,20 @@ window.scrollTo(0,0);
 
 }
 
-
 function openFile(file){
 
 opened++;
 
-alert(
-"FILE " + file[0] +
-"\n\n" +
-file[1] +
-"\n\n" +
-file[3].replace(/<br\s*\/?>/gi,"\n") +
-"\n\nDETECTIVE NOTE:\n" +
-file[4].replace(/<br\s*\/?>/gi,"\n")
-);
+document.getElementById("evidenceTitle").innerHTML =
+"FILE " + file[0] + " — " + file[1];
+
+document.getElementById("evidenceContent").innerHTML =
+file[3];
+
+document.getElementById("evidenceNote").innerHTML =
+file[4];
+
+document.getElementById("evidencePanel").classList.remove("hidden");
 
 if(opened >= 6){
 
@@ -489,7 +513,13 @@ document.getElementById("board").classList.remove("hidden");
 }
 
 }
+  
+function closeEvidence(){
 
+document.getElementById("evidencePanel").classList.add("hidden");
+
+}
+  
 function choose(button){
 
 document.querySelectorAll("#board button").forEach(function(button){
