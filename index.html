@@ -453,19 +453,18 @@ alert(
 "\n\n" +
 file[1] +
 "\n\n" +
-file[2].replace(/<br>/g,"\n") +
+file[2].replace(/<br\s*\/?>/gi,"\n") +
 "\n\nDETECTIVE NOTE:\n" +
-file[3]
+file[4].replace(/<br\s*\/?>/gi,"\n")
 );
 
 if(opened >= 6){
 
-document.getElementById("investigationBoard").classList.remove("hidden");
+document.getElementById("board").classList.remove("hidden");
 
 }
 
 }
-
 
 function choose(button){
 
