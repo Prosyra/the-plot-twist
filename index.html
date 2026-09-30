@@ -522,12 +522,6 @@ document.getElementById("files").classList.add("hidden");
 
 document.getElementById("evidencePanel").classList.remove("hidden");
 
-if(opened >= 6){
-
-document.getElementById("board").classList.remove("hidden");
-
-}
-
 }
   
 function closeEvidence(){
@@ -535,9 +529,15 @@ function closeEvidence(){
 document.getElementById("evidencePanel").classList.add("hidden");
   
 document.getElementById("files").classList.remove("hidden");
-  
+
+if(opened >= 6){
+
+document.getElementById("board").classList.remove("hidden");
+
 }
-  
+
+}
+
 function choose(button){
 
 document.querySelectorAll("#investigationBoard button:not(#revealButton)").forEach(function(button){
