@@ -540,7 +540,7 @@ document.getElementById("files").classList.remove("hidden");
   
 function choose(button){
 
-document.querySelectorAll("#board button").forEach(function(button){
+document.querySelectorAll("#investigationBoard button:not(#revealButton)").forEach(function(button){
 
 button.style.opacity=".45";
 
