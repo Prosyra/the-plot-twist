@@ -68,6 +68,16 @@ padding:20px;
 margin:20px 0;
 }
 
+.phoneEvidence{
+background:#080808;
+border:1px solid #333;
+padding:15px;
+margin:15px 0;
+font-family:monospace;
+font-size:13px;
+line-height:1.7;
+  }
+  
 #evidencePanel h2{
 margin-top:0;
 }
@@ -499,7 +509,9 @@ document.getElementById("evidenceTitle").innerHTML =
 "FILE " + file[0] + " — " + file[1];
 
 document.getElementById("evidenceContent").innerHTML =
-file[3];
+'<div class="phoneEvidence">' + 
+file[3] +
+'</div>';
 
 document.getElementById("evidenceNote").innerHTML =
 file[4];
